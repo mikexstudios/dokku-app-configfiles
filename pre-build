@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -eo pipefail; [[ $DOKKU_TRACE ]] && set -x
+
+APP="$1";
+APP_PATH="$DOKKU_ROOT/$APP"
+echo "-----> Copying any files from app's .dokku/* to ${APP_PATH}..."
+
+CID=$(docker run -d $IMAGE /bin/sh)
+docker cp $CID:/app/.dokku/* $APP_PATH 2> /dev/null || true
+docker rm -f $CID
