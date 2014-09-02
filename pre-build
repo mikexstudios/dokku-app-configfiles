@@ -3,6 +3,7 @@ set -eo pipefail; [[ $DOKKU_TRACE ]] && set -x
 
 APP="$1";
 APP_PATH="$DOKKU_ROOT/$APP"
+IMAGE="dokku/$APP"
 echo "-----> Copying any files from app's .dokku/* to ${APP_PATH}..."
 
 CID=$(docker run -d $IMAGE /bin/sh)
