@@ -5,7 +5,7 @@ APP="$1"; IMAGE="dokku/$APP"
 APP_PATH="$DOKKU_ROOT/$APP"
 echo "-----> Copying any files from app's .dokku/* to ${APP_PATH}..."
 
-CONFIG_FILES=$(docker run -i -a stdout $IMAGE /bin/bash -c "find /app/.dokku/ -type f")
+CONFIG_FILES=$(docker run --rm -i -a stdout $IMAGE /bin/bash -c "find /app/.dokku/ -type f")
 CID=$(docker run -d $IMAGE /bin/sh)
 for file in $CONFIG_FILES; do
 	docker cp $CID:$file $APP_PATH || true
